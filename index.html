@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -642,19 +642,31 @@ import {
         docRef.id
       );
 
-    } catch (error) {
+        } catch (error) {
 
       console.error("Firebase保存エラー:", error);
 
-      $("uploadStatus").textContent =
-        "自動保存に失敗しました。CSVを保存してください。";
+      if (error.code === "already-exists") {
 
-      $("copyMsg").textContent =
-        "エラー：" + error.message;
+        $("uploadStatus").textContent =
+          "Firebaseには既に記録が保存されています。";
 
-      uploadStarted = false;
+        $("copyMsg").textContent =
+          "既存の保存データを確認してください。";
+
+        uploadStarted = true;
+
+      } else {
+
+        $("uploadStatus").textContent =
+          "自動保存に失敗しました。CSVを保存してください。";
+
+        $("copyMsg").textContent =
+          "エラー：" + error.message;
+
+        uploadStarted = false;
+      }
     }
-  }
 
 
   /* 漫画画像読み込み */
