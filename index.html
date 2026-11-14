@@ -58,15 +58,17 @@
   }
 
   /* 画像を右から左へ並べる */
-  #strip {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-    will-change: transform;
-  }
+  /* 画像を右から左へ並べる */
+#strip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 20px; /* 画像同士の間に20pxの余白を入れる */
+  will-change: transform;
+}
 
   .page {
     flex: 0 0 100vw;
@@ -446,9 +448,9 @@ import {
       viewer.clientWidth || window.innerWidth;
 
     strip.style.transform =
-      "translate3d(" +
-      (position * width) +
-      "px, 0, 0)";
+  "translate3d(" +
+  (position * (width + 20)) +
+  "px, 0, 0)";
 
     progressBar.style.transform =
       `scaleX(${maxPosition > 0
@@ -503,7 +505,7 @@ import {
     maxPosition = Math.max(0, pages.length - 1);
 
     strip.style.width =
-      (pages.length * width) + "px";
+  (pages.length * width + (pages.length - 1) * 20) + "px";
 
     pages.forEach(page => {
 
